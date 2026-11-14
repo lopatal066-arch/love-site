@@ -470,7 +470,16 @@ function setupLetter() {
 
 /* ---------- Музыка ---------- */
 
-const melody = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.0, 698.46];
+const BARS = [
+  { bass: 130.81, notes: [659.25, 783.99, 1046.5, 783.99] },
+  { bass: 130.81, notes: [659.25, 783.99, 1046.5, null] },
+  { bass: 174.61, notes: [587.33, 698.46, 880.0, 698.46] },
+  { bass: 196.0, notes: [587.33, 698.46, 987.77, null] },
+  { bass: 130.81, notes: [523.25, 659.25, 783.99, 659.25] },
+  { bass: 110.0, notes: [880.0, 783.99, 659.25, null] },
+  { bass: 174.61, notes: [698.46, 659.25, 587.33, 523.25] },
+  { bass: 196.0, notes: [392.0, null, 523.25, null] }
+];
 const music = { ctx: null, timer: null, step: 0, on: false };
 
 function audioCtx() {
@@ -500,10 +509,14 @@ function tone(freq, dur = 0.4, vol = 0.05, type = "triangle") {
 }
 
 function musicStep() {
-  const freq = melody[music.step % melody.length];
-  tone(freq, 0.5, 0.045);
-  if (music.step % melody.length === 0) tone(freq / 2, 1.6, 0.03, "sine");
-  if (music.step % 4 === 2) tone(freq * 2, 0.25, 0.018, "sine");
+  const bar = BARS[Math.floor(music.step / 4) % BARS.length];
+  const idx = music.step % 4;
+  const freq = bar.notes[idx];
+  if (idx === 0) tone(bar.bass, 2.1, 0.022, "sine");
+  if (freq) {
+    tone(freq, 0.5, 0.04, "triangle");
+    tone(freq * 2, 0.18, 0.012, "sine");
+  }
   music.step += 1;
 }
 
@@ -520,7 +533,7 @@ function setupMusic() {
     } else {
       music.on = true;
       musicStep();
-      music.timer = setInterval(musicStep, 430);
+      music.timer = setInterval(musicStep, 300);
       btn.textContent = "❚❚ Выключить музыку";
       btn.setAttribute("aria-pressed", "true");
     }
