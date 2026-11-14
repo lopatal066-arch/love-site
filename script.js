@@ -1,6 +1,6 @@
 const CONFIG = {
   herName: "Настя",
-  myName: "самый любящий",
+  myName: "кошкомальчик",
   since: "2026-06-25T00:00:00",
   fallbackNote: "…и каждый следующий день только лучше.",
   reasons: [
