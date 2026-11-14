@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Для тебя ♥</title>
+<meta name="description" content="Маленький розовый уголок интернета, сделанный с любовью.">
+<meta name="theme-color" content="#ffd6e5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%96%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="badge">только для тебя 💌</span>
+    <h1 class="hero-title">Привет, <span data-name>Малышка</span> <span class="heartbeat">♥</span></h1>
+    <p class="hero-sub">
+      Этот маленький уголок интернета я собрал для одного человека.
+      Чтобы напомнить: <b>я тебя очень люблю</b>.
+    </p>
+    <div class="hero-actions">
+      <button class="btn primary" id="startBtn">Пойдём гулять по сайту ✨</button>
+      <button class="btn ghost" id="musicBtn" aria-pressed="false">♫ Включить музыку</button>
+    </div>
+    <button class="big-heart" id="bigHeart" aria-label="Нажми на сердечко">
+      <span>💖</span>
+    </button>
+    <div class="scroll-hint">листай вниз ↓</div>
+  </div>
+</header>
+
+<main>
+
+  <section class="card counter reveal" aria-labelledby="counterTitle">
+    <h2 id="counterTitle">Мы вместе уже</h2>
+    <div class="clock" id="clock" aria-live="off">
+      <div class="clock-cell"><span id="cdDays">0</span><small>дней</small></div>
+      <div class="clock-cell"><span id="cdHours">0</span><small>часов</small></div>
+      <div class="clock-cell"><span id="cdMins">0</span><small>минут</small></div>
+      <div class="clock-cell"><span id="cdSecs">0</span><small>секунд</small></div>
+    </div>
+    <p class="counter-note" id="counterNote">…и каждый следующий день только лучше.</p>
+  </section>
+
+  <section class="reveal" aria-labelledby="reasonsTitle">
+    <h2 id="reasonsTitle">Пять причин, почему я тебя люблю</h2>
+    <div class="reasons-grid" id="reasonsGrid"></div>
+  </section>
+
+  <section class="card games reveal" aria-labelledby="gamesTitle" id="games">
+    <h2 id="gamesTitle">Мини-игры для тебя 🎮</h2>
+    <p class="section-sub">Выбирай, во что поиграем. Все призы — мои сердечки.</p>
+
+    <div class="tabs" role="tablist" aria-label="Мини-игры">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="catch">Поймай сердечки</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="memory">Найди пару</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="quiz">Тест на любовь</button>
+    </div>
+
+    <div class="game-panel" id="panel-catch" role="tabpanel">
+      <p class="panel-hint">Лови сердечки за 30 секунд 💗 Золотое ⭐ даёт +3, а разбитое 💔 отнимает 2.</p>
+      <div class="catch-hud">
+        <span>Счёт: <b id="catchScore">0</b></span>
+        <span>Время: <b id="catchTime">30</b> с</span>
+        <button class="btn small primary" id="catchStart">Старт</button>
+      </div>
+      <div class="catch-area" id="catchArea">
+        <div class="catch-overlay show" id="catchOverlay">
+          <h3>Готова? 💗</h3>
+          <p>Нажми «Старт» — и лови мои сердечки.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-panel hidden" id="panel-memory" role="tabpanel">
+      <p class="panel-hint">Открой все пары 💞 Докажи, что ты помнишь всё, что связано с нами.</p>
+      <div class="memory-hud">
+        <span>Ходы: <b id="memMoves">0</b></span>
+        <span>Пары: <b id="memPairs">0</b> / 8</span>
+        <button class="btn small ghost" id="memRestart">Заново</button>
+      </div>
+      <div class="memory-grid" id="memoryGrid"></div>
+      <div class="memory-win" id="memoryWin" aria-live="polite"></div>
+    </div>
+
+    <div class="game-panel hidden" id="panel-quiz" role="tabpanel">
+      <p class="panel-hint">Отвечай честно, тут нет неправильных ответов. Ну почти 😌</p>
+      <div id="quiz" class="quiz"></div>
+    </div>
+  </section>
+
+  <section class="letter-wrap reveal" aria-labelledby="letterTitle">
+    <h2 id="letterTitle">Тут спрятано письмо 💌</h2>
+    <button class="envelope" id="envelope" aria-expanded="false" aria-controls="letterPaper">
+      <span class="env-flap"></span>
+      <span class="env-body"></span>
+      <span class="env-heart">♥</span>
+      <span class="env-hint">нажми, чтобы открыть</span>
+    </button>
+    <article class="letter-paper" id="letterPaper">
+      <p class="letter-greeting" data-name>Малышка,</p>
+      <p>если ты это читаешь — значит, ты дошла до самого главного места на этом сайте.</p>
+      <p>
+        Я не очень умею говорить красивые слова вслух, поэтому собрал их здесь.
+        Спасибо, что ты рядом: за смех над моими глупыми шутками, за тёплые сообщения
+        утром, за то, что даже обычный день с тобой становится особенным.
+      </p>
+      <p>
+        Этот сайт — маленький, как мой повод для гордости, и розовый, как твои любимые вещи.
+        Но главное в нём — вот это: <b>я тебя люблю. Очень. Каждый день.</b>
+      </p>
+      <p class="letter-sign">Твой <span data-myname>самый любящий</span> ♥</p>
+    </article>
+  </section>
+
+</main>
+
+<footer>
+  <p>Сделано вручную, с любовью и щепоткой розового 💗</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="confetti-layer" id="confetti" aria-hidden="true"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
